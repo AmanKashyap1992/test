@@ -1,0 +1,11 @@
+test\service\TestService.class
+test\dao\Dao.class
+test\dao\DaoImpl.class
+test\util\HibernateUtil.class
+test\main\TestMainApplication.class
+test\controller\TestController.class
+test\service\TestServiceImpl.class
+test\bean\UserBean.class
+test\main\Config.class
+test\main\WebAppConfig.class
+test\model\User.class

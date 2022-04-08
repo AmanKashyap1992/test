@@ -1,0 +1,94 @@
+<html>
+<head>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<script src="jquery.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<style>
+Table.GridOne {
+ padding: 3px;
+ margin: 0;
+ background: lightyellow;
+ border-collapse: collapse; 
+ width:35%;
+}
+Table.GridOne Td { 
+ padding:2px;
+ border: 1px solid #ff9900;
+ border-collapse: collapse;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	 fetchUser();
+	});
+
+
+function fetchUser(){
+	 $.ajax({
+	  	  url:"api/fetchUser",
+	  	  type:"GET",
+	  	  success: function(data){
+	  		  console.log(data);
+	  		  debugger
+	  		$.each(data,function(index,item) {
+	  			 $(".displayData").append(
+						"<tr>"+
+						 "<td>" + item.uName+ "</td>" +
+						"<td>" + item.uEmail + "</td></tr>");
+				});
+
+	  	  }
+	  	})  
+}
+
+function madeAjaxCall(){
+	debugger
+  $.ajax({
+  	  url:"api/saveData",
+  	  type:"POST",
+  	  data: { uName: $("#name").val(), uEmail: $("#uEmail").val() },
+  	statusCode: {
+  	    404: function () {
+  	    	alert("Failed to save record");
+  	    },
+  	    200: function (data) {
+  	    	console.log(data)
+  		  alert("Record has been saved successfully");
+  	    	$("#name").val("");
+  	    	$("#uEmail").val("");
+  		  fetchUser();
+  	    }
+  	  }
+  	})  
+  
+}
+
+</script>
+</head>
+<body>
+ 
+  <table cellpadding="0" cellspacing="0" border="1" class="GridOne"  style="width:40%;">
+   <tr>
+    <td>Name</td>
+    <td><input type="text" name="name" id="name" value=""></td>
+   </tr>
+   <tr>
+    <td>Country</td>
+    <td><input type="text" name="uEmail" id="uEmail" value=""></td>
+   </tr>
+   
+   <tr>
+    <td colspan="2" align="center"><input type="button" value="Save" onclick="madeAjaxCall()"></td>
+   </tr>
+  </table>
+
+<!--<div id="result"></div>-->
+
+<table border="1" style="width:40%;" class="displayData">
+   <tr>
+   <td style="font-size:30px;"><b>Name</b></td>
+   <td style="font-size:30px;"><b>Email</b></td>
+   </tr>
+</table>
+</body>
+</html>
